@@ -1,5 +1,6 @@
 package com.MongoDB.workshop.services;
 
+import com.MongoDB.workshop.DTO.UserDTO;
 import com.MongoDB.workshop.domain.User;
 import com.MongoDB.workshop.repository.UserRepository;
 import com.MongoDB.workshop.services.exception.ObjectNotFoundException;
@@ -23,4 +24,14 @@ public class UserService {
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
+
+    public User insert(User user) {
+        return userRepository.insert(user);
+    }
+
+    //este metodo poder ser inserido na classe userDto, mas deixou aqui para usar em outros metodos
+    public User fromDTO(UserDTO userDTO) {
+        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
+    }
+
 }
