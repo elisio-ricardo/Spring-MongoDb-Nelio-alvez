@@ -29,6 +29,27 @@ public class UserService {
         return userRepository.insert(user);
     }
 
+    public User update(User obj) {
+        Optional<User> newObj = userRepository.findById(obj.getId());
+        User objUser = fromOptionalToUser(newObj);
+        updateData(objUser, obj);
+        userRepository.save(objUser);
+        return objUser;
+    }
+
+    private User fromOptionalToUser(Optional<User> newObj) {
+        User userObj = new User();
+        userObj.setId(newObj.get().getId());
+        userObj.setName(newObj.get().getName());
+        userObj.setEmail(newObj.get().getEmail());
+        return userObj;
+    }
+
+    private void updateData(User newObj, User obj) {
+        newObj.setName(obj.getName());
+        newObj.setEmail(obj.getEmail());
+    }
+
     public void delete(String id) {
         findById(id);//para garantir que o obj existe, se não existir joga uma exception
         userRepository.deleteById(id);
