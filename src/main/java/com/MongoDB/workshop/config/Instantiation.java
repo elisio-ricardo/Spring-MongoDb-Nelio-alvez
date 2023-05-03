@@ -1,6 +1,7 @@
 package com.MongoDB.workshop.config;
 
 import com.MongoDB.workshop.DTO.AuthorDTO;
+import com.MongoDB.workshop.DTO.ComentDTO;
 import com.MongoDB.workshop.domain.Post;
 import com.MongoDB.workshop.domain.User;
 import com.MongoDB.workshop.repository.PostRepository;
@@ -39,6 +40,13 @@ public class Instantiation implements CommandLineRunner {
 
         Post post1 = new Post(null, sdf.parse("21/01/2018"), "Partiu viagem", "Vou viajar para são Paulo", new AuthorDTO(maria));
         Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom Dia", "Acordei Feliz Hoje", new AuthorDTO(maria));
+
+        ComentDTO c1 = new ComentDTO("Boa viagem", sdf.parse("21/03/2018"), new AuthorDTO(alex));
+        ComentDTO c2 = new ComentDTO("Tudo bem !", sdf.parse("10/12/2020"), new AuthorDTO(pedro));
+        ComentDTO c3 = new ComentDTO("Ate amanha", sdf.parse("21/06/2018"), new AuthorDTO(alex));
+
+        post1.getComments().addAll(Arrays.asList(c1, c2));
+        post2.getComments().addAll(Arrays.asList(c3));
 
         postRepository.saveAll(Arrays.asList(post1, post2));
 
