@@ -29,6 +29,11 @@ public class UserService {
         return userRepository.insert(user);
     }
 
+    public void delete(String id) {
+        findById(id);//para garantir que o obj existe, se não existir joga uma exception
+        userRepository.deleteById(id);
+    }
+
     //este metodo poder ser inserido na classe userDto, mas deixou aqui para usar em outros metodos
     public User fromDTO(UserDTO userDTO) {
         return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
