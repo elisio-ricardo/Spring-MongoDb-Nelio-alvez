@@ -2,6 +2,7 @@ package com.MongoDB.workshop.resources;
 
 
 import com.MongoDB.workshop.DTO.UserDTO;
+import com.MongoDB.workshop.domain.Post;
 import com.MongoDB.workshop.domain.User;
 import com.MongoDB.workshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,11 @@ public class UserResource {
     public ResponseEntity<Void> delete(@PathVariable String id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();//no content retorna um 204
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
     }
 }
